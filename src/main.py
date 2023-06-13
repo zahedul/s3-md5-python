@@ -19,5 +19,6 @@ if __name__ == '__main__':
         args.workers
     )
     elapsed_time = perf_counter() - start_time
+    logger.infof(f"chunk size {args.chunk_size/(1024 * 1024)}")
     logger.info(f"md5 hash {md5_hash} for {args.file_name}")
     logger.info(f"took {strftime('%H:%M:%S', gmtime(elapsed_time))}")

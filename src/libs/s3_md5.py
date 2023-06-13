@@ -1,6 +1,7 @@
 '''module uses threads to download file from s3 and generates md5 hash'''
 from concurrent.futures import ThreadPoolExecutor
 from hashlib import md5
+import os
 
 from mypy_boto3_s3 import S3Client
 
@@ -17,6 +18,9 @@ def parse_file_md5(s3_client: S3Client,
     s3_file = S3FileHelper(s3_client, bucket, file_name)
 
     file_size = s3_file.get_file_size()
+    if os.environ.get("CHUNK_SIZE", None) is not None:
+        chunk_size = int(os.environ["CHUNK_SIZE"]) * 1024 * 1024
+
     if file_size < chunk_size:
         raise AssertionError('file size cannot be smaller than chunk size')
     logger.info(f'file size {file_size} bytes')
