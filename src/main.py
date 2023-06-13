@@ -3,9 +3,9 @@ from time import perf_counter
 
 from boto3 import client
 
-from src.cli import parse_args
-from src.logger import logger
-from src.s3_md5 import parse_file_md5
+from src.libs.cli import parse_args
+from src.libs.logger import logger
+from src.libs.s3_md5 import parse_file_md5
 
 if __name__ == '__main__':
     start_time = perf_counter()

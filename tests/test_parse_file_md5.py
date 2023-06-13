@@ -4,7 +4,7 @@ from typing import Tuple
 
 from mypy_boto3_s3 import S3Client
 
-from src.s3_md5 import parse_file_md5
+from src.libs.s3_md5 import parse_file_md5
 
 
 def test_get_md5_hash(s3_setup: Tuple[S3Client, str, str, str]):

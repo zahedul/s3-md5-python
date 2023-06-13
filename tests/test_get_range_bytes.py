@@ -3,7 +3,7 @@ from typing import Tuple
 
 from mypy_boto3_s3 import S3Client
 
-from src.s3_file import S3FileHelper
+from src.libs.s3_file import S3FileHelper
 
 
 def test_get_range_bytes(s3_setup: Tuple[S3Client, str, str, str]):

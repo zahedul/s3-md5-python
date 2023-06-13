@@ -5,13 +5,19 @@ from pytest import fixture
 
 
 @fixture
-def s3_setup():
+def env_var(monkeypatch):
+    monkeypatch.setenv("AWS_DEFAULT_REGION", "eu-west-1")
+
+@fixture
+def s3_setup(env_var):
     with mock_s3():
         s3_client = client('s3')
         test_bucket = 'bucket'
         test_file_name = 'key'
         test_body = '0123456789'
-        s3_client.create_bucket(Bucket=test_bucket)
+        s3_client.create_bucket(Bucket=test_bucket, CreateBucketConfiguration={
+            'LocationConstraint': 'us-west-1'
+        })
         s3_client.put_object(Bucket=test_bucket,
                              Key=test_file_name,
                              Body=test_body)
