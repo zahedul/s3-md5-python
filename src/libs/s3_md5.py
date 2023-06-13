@@ -4,8 +4,8 @@ from hashlib import md5
 
 from mypy_boto3_s3 import S3Client
 
-from src.libs.logger import logger
-from src.libs.s3_file import S3FileHelper
+from .logger import logger
+from .s3_file import S3FileHelper
 
 
 def parse_file_md5(s3_client: S3Client,
@@ -27,12 +27,12 @@ def parse_file_md5(s3_client: S3Client,
         def wrapper(part_number: int):
             ranged_bytes_string = s3_file.calculate_range_bytes_from_part_number(
                 part_number, chunk_size, file_chunk_count)
-            logger.info(f"downloading {ranged_bytes_string}")
+            logger.debug(f"downloading {ranged_bytes_string}")
             ranged_bytes = s3_file.get_range_bytes(ranged_bytes_string)
-            logger.info(f"downloaded {ranged_bytes_string}")
+            logger.debug(f"downloaded {ranged_bytes_string}")
             return ranged_bytes
 
-        logger.info('downloading file')
+        logger.info(f'downloading the file chunk')
         results = thread_executor.map(wrapper,
                                       range(file_chunk_count))
 

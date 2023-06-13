@@ -1,11 +1,11 @@
 '''driver'''
-from time import perf_counter
+from time import perf_counter, gmtime, strftime
 
 from boto3 import client
 
-from src.libs.cli import parse_args
-from src.libs.logger import logger
-from src.libs.s3_md5 import parse_file_md5
+from libs.cli import parse_args
+from libs.logger import logger
+from libs.s3_md5 import parse_file_md5
 
 if __name__ == '__main__':
     start_time = perf_counter()
@@ -18,5 +18,6 @@ if __name__ == '__main__':
         args.chunk_size,
         args.workers
     )
-    logger.info(f'md5 hash {md5_hash}')
-    logger.info(f'took {perf_counter() - start_time} seconds')
+    elapsed_time = perf_counter() - start_time
+    logger.info(f"md5 hash {md5_hash} for {args.file_name}")
+    logger.info(f"took {strftime('%H:%M:%S', gmtime(elapsed_time))}")

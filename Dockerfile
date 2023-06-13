@@ -1,4 +1,4 @@
-FROM python:3.10-slim
+FROM python:3.8-slim
 
 ARG USER_NAME=md5user
 
@@ -28,4 +28,4 @@ RUN mkdir /home/$USER_NAME/src
 WORKDIR /home/$USER_NAME/src
 COPY ./src /home/$USER_NAME/src
 
-ENTRYPOINT [ "python", "-m", "main" ]
+#ENTRYPOINT [ "python", "-m", "main", "m2a-transcode-bbcwwtest-media", "zee/promo_15_min.mxf" ]
