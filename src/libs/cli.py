@@ -6,7 +6,7 @@ from multiprocessing import cpu_count
 def parse_args():
     '''parses command line arguments'''
     DEFAULT_WORKERS = cpu_count() * 2 - 1
-    DEFAULT_CHUNK_SIZE = 1000000
+    DEFAULT_CHUNK_SIZE = 8 * 1024 * 1024
 
     parser = ArgumentParser(description='parse md5 of an s3 object')
     parser.add_argument('bucket',
